@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECharts Treemap Visualization</title>
+  <!-- Include ECharts library -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.0/dist/echarts.min.js"></script>
+</head>
+<body>
+  <!-- Container to render the chart -->
+  <div id="main" style="width: 80%; height: 400px;"></div>
+
+  <script>
+    // ECharts code with custom styling
+    document.addEventListener('DOMContentLoaded', function () {
+      var chartDom = document.getElementById('main');
+      var myChart = echarts.init(chartDom);
+      var option;
+
+      var data = [
+        { value: 400, name: 'LP Token\nStaking', itemStyle: { color: '#00b689' } },
+        { value: 200, name: 'OIT\nSTAKING', itemStyle: { color: '#6ab9e6' } },
+        { value: 100, name: 'Bounties', itemStyle: { color: '#ebea67' } },
+        { value: 50, name: 'Airdrops', itemStyle: { color: '#9c65be' } },
+      ];
+
+
+     option = {
+        series: [
+          {
+            type: 'treemap',
+            data: data,
+            emphasis: {
+              focus: 'descendant',
+              itemStyle: {
+                borderWidth: 3,
+                borderColor: '#333'
+              },
+              label: {
+                show: true,
+                color: 'black',
+                fontSize: 24, // Emphasize name more (adjust as needed)
+                fontWeight: 'bold',
+                position: 'inside',
+                padding: [10, 5, 5, 5] // Adjust padding for the label
+              }
+            },
+            label: {
+              show: true,
+              formatter: function (params) {
+                if (!params.children) {
+                  return params.name + '\n\n' + params.value + 'k'; // Add a suffix here
+                }
+                return params.name;
+              },
+              fontWeight: 'bold',
+              color: 'black',
+              fontSize: 18, // Make the value smaller (adjust as needed)
+              position: 'inside'
+            }
+          }
+        ]
+      };
+      option && myChart.setOption(option);
+    });
+  </script>
+
+  <!-- Custom CSS styling -->
+  <style>
+    /* Add custom styles here */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .echarts-treemap-node {
+      /* Add thick lines between the blocks */
+      border: 20px solid #333;
+    }
+  </style>
+</body>
+</html>
